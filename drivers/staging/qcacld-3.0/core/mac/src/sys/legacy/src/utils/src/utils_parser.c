@@ -1,9 +1,6 @@
 /*
  * Copyright (c) 2011-2018 The Linux Foundation. All rights reserved.
  *
- * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
- *
- *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
  * above copyright notice and this permission notice appear in all
@@ -17,12 +14,6 @@
  * PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
  * TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
  * PERFORMANCE OF THIS SOFTWARE.
- */
-
-/*
- * This file was originally distributed by Qualcomm Atheros, Inc.
- * under proprietary terms before Copyright ownership was assigned
- * to the Linux Foundation.
  */
 
 /*
@@ -93,6 +84,7 @@ tSirRetStatus convert_wpa(tpAniSirGlobal pMac,
 	/* array... */
 	uint8_t buffer[257];
 	uint32_t status, written = 0, nbuffer = 257;
+
 	status = dot11f_pack_ie_wpa(pMac, pNew, buffer, nbuffer, &written);
 	if (DOT11F_FAILED(status)) {
 		pe_err("Failed to re-pack the WPA IE (0x%0x8)", status);
@@ -198,6 +190,7 @@ tSirRetStatus convert_rsn(tpAniSirGlobal pMac,
 {
 	uint8_t buffer[257];
 	uint32_t status, written = 0, nbuffer = 257;
+
 	status = dot11f_pack_ie_rsn(pMac, pNew, buffer, nbuffer, &written);
 	if (DOT11F_FAILED(status)) {
 		pe_err("Failed to re-pack the RSN IE (0x%0x8)", status);

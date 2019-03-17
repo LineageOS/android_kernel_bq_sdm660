@@ -67,4 +67,3 @@ ifdef CONFIG_COMPAT
 obj-$(CONFIG_MSM_ADSPRPC)       += adsprpc_compat.o
 endif
 obj-$(CONFIG_MSM_RDBG)		+= rdbg.o
-obj-$(CONFIG_I2C_DEVINFO)	+= i2c_devinfo/

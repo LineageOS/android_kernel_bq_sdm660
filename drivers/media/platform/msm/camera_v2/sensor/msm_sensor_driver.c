@@ -28,7 +28,6 @@ extern struct vendor_eeprom s_vendor_eeprom[CAMERA_VENDOR_EEPROM_COUNT_MAX];
 
 int32_t msm_sensor_init_device_name(void);
 void msm_sensor_set_module_info(struct msm_sensor_ctrl_t *s_ctrl);
-extern int i2c_devinfo_device_write(char *buf);
 
 static struct v4l2_file_operations msm_sensor_v4l2_subdev_fops;
 static int32_t msm_sensor_driver_platform_probe(struct platform_device *pdev);
@@ -949,25 +948,19 @@ int32_t msm_sensor_driver_probe(void *setting,
 
 #ifdef CONFIG_ZANGYAPRO_CAMERA
   if(strcmp(slave_info->sensor_name,"s5k2l8_ofilm_zangyapro") == 0){ /*Must last back-camera config in camera_config.xml*/
-      i2c_devinfo_device_write("Bcam:0;");
   }
   if(strcmp(slave_info->sensor_name,"imx350_ofilm_zangyapro") == 0){ /*Must last back-camera config in camera_config.xml*/
-      i2c_devinfo_device_write("Bcam2:0;");
   }
   if(strcmp(slave_info->sensor_name,"s5k4h7yx_holitech_zangya") == 0){ /*Must last front-camera config in camera_config.xml*/
-      i2c_devinfo_device_write("Fcam:0;");
   }
 #endif
 
 #ifdef CONFIG_ZANGYA_CAMERA
   if(strcmp(slave_info->sensor_name,"s5k2l8_holitech_zangya") == 0){ /*Must last back-camera config in camera_config.xml*/
-      i2c_devinfo_device_write("Bcam:0;");
   }
   if(strcmp(slave_info->sensor_name,"s5k5e8_holitech_zangya") == 0){ /*Must last back-camera config in camera_config.xml*/
-      i2c_devinfo_device_write("Bcam2:0;");
   }
   if(strcmp(slave_info->sensor_name,"s5k4h7yx_holitech_zangya") == 0){ /*Must last front-camera config in camera_config.xml*/
-      i2c_devinfo_device_write("Fcam:0;");
   }
 #endif
 
@@ -1169,20 +1162,14 @@ CSID_TG:
 	if (rc < 0) {
 		pr_err("%s power up failed", slave_info->sensor_name);
 		if (s_ctrl->id == 0) {
-			i2c_devinfo_device_write("BCam:0;");
 		} else if (s_ctrl->id == 1) {
-			i2c_devinfo_device_write("BCam2:0;");
 		}else if (s_ctrl->id == 2) {
-			i2c_devinfo_device_write("FCam:0;");
 		}
 		goto free_camera_info;
 	}else {
 		if (s_ctrl->id == 0) {
-			i2c_devinfo_device_write("BCam:1;");
 		} else if (s_ctrl->id == 1) {
-			i2c_devinfo_device_write("BCam2:1;");
 		}else if (s_ctrl->id == 2) {
-			i2c_devinfo_device_write("FCam:1;");
 		}
 	}
 
@@ -1571,8 +1558,8 @@ static int32_t msm_sensor_driver_i2c_probe(struct i2c_client *client,
 				rc);
 			goto FREE_S_CTRL;
 		}
-		return rc;
 	}
+	return rc;
 FREE_S_CTRL:
 	kfree(s_ctrl);
 	return rc;
