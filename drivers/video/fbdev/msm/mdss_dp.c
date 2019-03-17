@@ -905,6 +905,7 @@ static int mdss_dp_config_gpios(struct mdss_dp_drv_pdata *dp, bool enable)
 			if (rc)
 				pr_err("unable to set dir for aux_en gpio\n");
 		}
+
 #ifndef CONFIG_PTN36502
 		if (gpio_is_valid(dp->aux_sel_gpio)) {
 			rc = gpio_direction_output(
@@ -913,6 +914,7 @@ static int mdss_dp_config_gpios(struct mdss_dp_drv_pdata *dp, bool enable)
 				pr_err("unable to set dir for aux_sel gpio\n");
 		}
 #endif
+
 		if (gpio_is_valid(dp->usbplug_cc_gpio)) {
 			gpio_set_value(
 				dp->usbplug_cc_gpio, 0);
@@ -2040,7 +2042,7 @@ static int mdss_dp_host_init(struct mdss_panel_data *pdata)
 			dp_drv->orientation, dp_drv->aux_sel_gpio_output);
 
 #ifdef CONFIG_PTN36502
-  	set_ptn36502_dp4lane_mode(dp_drv->orientation);
+	set_ptn36502_dp4lane_mode(dp_drv->orientation);
 	mdelay(5);
 	pr_err("set_ptn36502_dp4lane_mode\n");
 #endif
@@ -3083,7 +3085,6 @@ static void mdss_dp_mainlink_push_idle(struct mdss_panel_data *pdata)
 		if (mdss_dp_aux_send_psm_request(dp_drv, true))
 			pr_err("Failed to enter low power mode\n");
 	}
-
 	reinit_completion(&dp_drv->idle_comp);
 	mdss_dp_state_ctrl(&dp_drv->ctrl_io, ST_PUSH_IDLE);
 	if (!wait_for_completion_timeout(&dp_drv->idle_comp,
